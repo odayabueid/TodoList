@@ -10,7 +10,7 @@ const { HTTP_CREATED, HTTP_UNAUTHORIZED, HTTP_BAD_REQUEST, HTTP_SERVER_ERROR } =
 const { Place, User } = require('./database/models.js');
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 
 //Middleware
 app.use(printTime);

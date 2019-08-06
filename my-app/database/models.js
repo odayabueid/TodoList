@@ -13,6 +13,7 @@ const User = db.define('user', {
     password: {type: Sequelize.STRING, required: true}
 });
 
+User.hasMany(List);
 List.belongsTo(User); //Add userId foreign key to Place
 
 

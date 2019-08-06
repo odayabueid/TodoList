@@ -46,3 +46,53 @@ exports.findUser = function(req,res){
 
     })
 }
+
+exports.createTodo = function(req,res){
+    db.User.findOne({
+        where:{username:req.body.username}
+    }).then(user=>{
+        console.log(user)
+        user.createList({
+            todo:req.body.todo
+        })
+    }).then(list =>{
+        res.send("Todo created")
+    }).catch(err =>{
+        console.log('Error is',err)
+    })
+};
+
+exports.deleteTodo = function(req, res) {
+	db.User.findOne({
+        where:{username:req.body.username}
+    }).then(user =>{
+		db.List.destroy({where:{id:req.body.id}}).then(todo =>{
+				res.send("deleted")
+		})
+    }).catch(err =>{
+        console.log(err)
+    })
+};
+
+exports.retrieveTodos= function(req,res){ // retriev all Todos of specific user
+	db.User.findOne({
+        where:{username:req.body.username}
+    }).then(user =>{
+        user.getLists().then(todos => {
+			res.send(todos)
+		})
+    }).catch(err =>{
+        console.log(err)
+    })
+ };
+
+ exports.updateTodo = function(req, res) {  //done
+	db.List.update({
+		todo:req.body.todo
+		},{where:{id:req.body.id}}
+		).then(()=>{
+			res.send("updated successfully for this todo")
+		}).catch(err =>{
+            console.log(err)
+        })
+};
