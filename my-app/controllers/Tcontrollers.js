@@ -76,7 +76,7 @@ exports.deleteTodo = function(req, res) {
 
 exports.retrieveTodos= function(req,res){ // retriev all Todos of specific user
 	db.User.findOne({
-        where:{username:req.body.username}
+        where:{username:req.query.username}
     }).then(user =>{
         user.getLists().then(todos => {
 			res.send(todos)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router'
-
+import Todos from "./Todos"
 class SignIn extends React.Component{
     constructor(props){
         super(props);
@@ -67,7 +67,7 @@ renderRedirect = () =>{
         console.log(this.state.username)
       return <Redirect to = {{
         pathname:"/todos",
-        username:this.state.username
+        user:{username:this.state.username}
           }}/>
     }
     if(this.state.toggleSignUp){
@@ -81,11 +81,12 @@ renderRedirect = () =>{
   render(){
     return(
         <div>
-             {this.renderRedirect()}
+           
             <input type="text" onChange={this.user.bind(this)} placeholder="username"></input>
             <input type="text" onChange={this.pass.bind(this) }placeholder="password"></input>
             <button onClick={this.server.bind(this)}>Sign In</button>
             <p onClick={this.SignUp}>you don't have an account? please signup</p>
+            {this.renderRedirect()}
         </div>
     )}
 }
