@@ -86,7 +86,7 @@ exports.retrieveTodos= function(req,res){ // retriev all Todos of specific user
     })
  };
 
- exports.updateTodo = function(req, res) {  //done
+ exports.updateTodo = function(req, res) {  
 	db.List.update({
 		todo:req.body.todo
 		},{where:{id:req.body.id}}
