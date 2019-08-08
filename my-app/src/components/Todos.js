@@ -4,6 +4,8 @@ import axios from 'axios';
 import SignIn from "./SignIn"
 import * as JWT from 'jwt-decode';
 import { access } from 'fs';
+import { Route, Redirect } from 'react-router'
+
 var jwt = require("jsonwebtoken");
 
 class Todos extends React.Component{
@@ -15,7 +17,8 @@ class Todos extends React.Component{
       todoId:null,
       updateTodo:"",
       newTodo:"",
-      username:""
+      username:"",
+      redirect:false
         }
   }
 
@@ -131,15 +134,28 @@ componentDidMount(){
           },()=>{console.log(this.state.newTodo)}) 
       }
 
-   
+   logout=()=>{
+       localStorage.clear();
+       this.setState({
+           redirect:true
+       })
+     
+   }
 
-
+   renderRedirect = () =>{
+    if(this.state.redirect){
+      return <Redirect to = {{
+        pathname:"/signin"
+          }}/>
+    }
+}
   render(){
     return(
         <div>
-        
+             {this.renderRedirect()}
             <input type="text" placeholder="Add Todo" onChange={this.newTodo.bind(this)}></input>
             <button onClick={this.add}>Add Todo</button>
+            <button onClick={this.logout}>Log Out</button>
            {this.state.books.map(book=>
             <div>
                 <h1>{book.todo}</h1>
