@@ -27,7 +27,7 @@ server=()=>{
     fetch("signup/",{
         method:"POST",
         headers : {
-            Accept: "application/json",
+            "Accept": "application/json",
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
@@ -35,18 +35,20 @@ server=()=>{
             "password" : this.state.password
             } 
             )
-    }).then((response) => {
+    })
+    .then((response)=>{
+        console.log("hi")
+        console.log(response)
         if (response.status == 200) {
-                // const token = body.token
-                // localStorage.setItem('token', token);
                 that.setState({
-                        redirect: true
+                    redirect: true
                     },()=>console.log(this.state.redirect));
-        } else {
-            this.setState({
-                },()=>{alert("check your username or pass")});
-        }      
-    });
+        } 
+ 
+      }).catch(err => {
+        // Do something for an error here
+        console.log("Error Reading data " + err);
+      });
 }
 
 renderRedirect = () =>{

@@ -12,6 +12,7 @@ class SignIn extends React.Component{
         }
   }
 
+
   user(event){
     this.setState({
         username : event.target.value
@@ -81,12 +82,12 @@ renderRedirect = () =>{
   render(){
     return(
         <div>
-           
             <input type="text" onChange={this.user.bind(this)} placeholder="username"></input>
             <input type="text" onChange={this.pass.bind(this) }placeholder="password"></input>
             <button onClick={this.server.bind(this)}>Sign In</button>
             <p onClick={this.SignUp}>you don't have an account? please signup</p>
             {this.renderRedirect()}
+          
         </div>
     )}
 }

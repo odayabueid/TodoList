@@ -6,25 +6,45 @@ class Todos extends React.Component{
     constructor(props){
         super(props);
         this.state = {            
-      username:this.props.location.user.username,
+    //   username:this.props.location.user.username,
       books:[],
       todoId:null,
       updateTodo:"",
-      newTodo:""
+      newTodo:"",
+      username:"odayabueid"
         }
   }
 
 
-  componentDidMount(){
+//   componentDidMount(){
   
-    const searchtag = this.props.location.user.username;
-    console.log(searchtag)
+//     // const searchtag = this.props.location.user.username;
+//     console.log(searchtag)
 
-    fetch(`/retriveTodos?username=${searchtag}`)
+//     fetch(`/retriveTodos?username=${searchtag}`)
+//     .then((data)=>data.json()).then(res=>{
+//         this.setState({books:res},()=>console.log(this.state.books))
+//     })
+//     }
+
+
+componentWillMount(){
+    var that = this;
+ 
+    const token = "token " + localStorage.getItem("token");
+    const searchtag="odayabueid"
+    //  const searchtag = this.props.location.user.username;
+    // console.log(searchtag)
+
+    fetch(`/retriveTodos?username=${searchtag}`,{
+        method: "get",
+        headers:{Authorization: token}
+    })
     .then((data)=>data.json()).then(res=>{
         this.setState({books:res},()=>console.log(this.state.books))
     })
-    }
+
+}
 
     updatetodo(event){
         this.setState({
@@ -48,6 +68,8 @@ class Todos extends React.Component{
                 )
         }).then((response) => {
             console.log(response )
+        }).then(()=>{
+            this.componentWillMount()
         })
       }
  
@@ -65,6 +87,8 @@ class Todos extends React.Component{
                 )
         }).then((response) => {
             console.log(response )
+        }).then(()=>{
+            this.componentWillMount()
         })
       }
 
@@ -82,7 +106,11 @@ class Todos extends React.Component{
                 )
         }).then((response) => {
             console.log(response )
-        })
+        }).then(()=>{
+            this.componentWillMount()
+        }
+           
+        )
       }
 
       newTodo(event){
@@ -97,6 +125,7 @@ class Todos extends React.Component{
   render(){
     return(
         <div>
+        
             <input type="text" placeholder="Add Todo" onChange={this.newTodo.bind(this)}></input>
             <button onClick={this.add}>Add Todo</button>
            {this.state.books.map(book=>
