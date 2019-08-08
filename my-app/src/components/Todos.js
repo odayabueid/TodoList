@@ -2,6 +2,10 @@
 import React from 'react';
 import axios from 'axios';
 import SignIn from "./SignIn"
+import * as JWT from 'jwt-decode';
+import { access } from 'fs';
+var jwt = require("jsonwebtoken");
+
 class Todos extends React.Component{
     constructor(props){
         super(props);
@@ -11,7 +15,7 @@ class Todos extends React.Component{
       todoId:null,
       updateTodo:"",
       newTodo:"",
-      username:"odayabueid"
+      username:""
         }
   }
 
@@ -31,14 +35,22 @@ class Todos extends React.Component{
 componentWillMount(){
     var that = this;
  
-    const token = "token " + localStorage.getItem("token");
-    const searchtag="odayabueid"
-    //  const searchtag = this.props.location.user.username;
-    // console.log(searchtag)
+    const token =localStorage.getItem("token");
+    var decoded = jwt.decode(token);
+    this.setState({
+        username:decoded.username
+    })
+ 
 
-    fetch(`/retriveTodos?username=${searchtag}`,{
+}
+componentDidMount(){
+    const searchtag =this.state.username;
+    // const searchtag="odayabueid"
+    //  const searchtag = this.props.location.user.username;
+    console.log(this.state.username)
+    fetch(`/retriveTodos?username=${this.state.username}`,{
         method: "get",
-        headers:{Authorization: token}
+        headers:{'x-access-token':localStorage.getItem("token")}
     })
     .then((data)=>data.json()).then(res=>{
         this.setState({books:res},()=>console.log(this.state.books))
@@ -69,7 +81,7 @@ componentWillMount(){
         }).then((response) => {
             console.log(response )
         }).then(()=>{
-            this.componentWillMount()
+            this.componentDidMount()
         })
       }
  
@@ -88,7 +100,7 @@ componentWillMount(){
         }).then((response) => {
             console.log(response )
         }).then(()=>{
-            this.componentWillMount()
+            this.componentDidMount()
         })
       }
 
@@ -107,7 +119,7 @@ componentWillMount(){
         }).then((response) => {
             console.log(response )
         }).then(()=>{
-            this.componentWillMount()
+            this.componentDidMount()
         }
            
         )
