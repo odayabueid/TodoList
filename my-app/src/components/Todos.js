@@ -5,6 +5,19 @@ import SignIn from "./SignIn"
 import * as JWT from 'jwt-decode';
 import { access } from 'fs';
 import { Route, Redirect } from 'react-router'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import styles from './mystyle.module.css'; 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Popup from "reactjs-popup";
+
 
 var jwt = require("jsonwebtoken");
 
@@ -149,33 +162,90 @@ componentDidMount(){
           }}/>
     }
 }
+handleChange =()=>{
+    alert("sssssssssssssss")
+}
   render(){
     return(
         <div>
-             {this.renderRedirect()}
-            <input type="text" placeholder="Add Todo" onChange={this.newTodo.bind(this)}></input>
-            <button onClick={this.add}>Add Todo</button>
-            <button onClick={this.logout}>Log Out</button>
-           {this.state.books.map(book=>
+            {this.renderRedirect()}
+            <form className={styles.container} noValidate autoComplete="off">
+     
+            <TextField
+            id="outlined-dense"
+            label="Add Todo"
+           style={{ marginLeft:"8px",marginRight:"8px",marginTop:"16px"}}
+            margin="dense"
+            variant="outlined"
+            onChange={this.newTodo.bind(this)}
+            /> 
+              <Button variant="contained" color="primary" style={{margin:"8px",marginTop:"16px"}} onClick={this.add}>
+                    Add 
+            </Button>
+            <Button variant="contained" color="secondary" style={{margin:"8px",marginTop:"16px",marginLeft:"30%"}} onClick={this.logout}>
+                Log Out
+            </Button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </form>
+            {this.state.books.map(book=>
             <div>
-                <h1>{book.todo}</h1>
-                <input type="text" placeholder="write new todo" onChange={this.updatetodo.bind(this)}></input>
-                <button onClick={(e)=>{
+     
+                <Checkbox
+                    // checked={state.checkedA}
+                    onChange={this.handleChange}
+                    value="checkedA"
+                    inputProps={{
+                    'aria-label': 'primary checkbox',
+                }}/>
+                <span>{book.todo}</span>
+           
+            
+                <Popup trigger={ <Fab color="secondary" aria-label="edit" style={{margin:"8px"}}>
+                <EditIcon />    
+                </Fab>} position="right center">
+                    <input type="text" onChange={this.updatetodo.bind(this)}></input>
+                    <button  onClick={(e)=>{
                     this.setState({
                         todoId:book.id
                     },()=>{
                         this.prof()
                     })
                 }}>update</button>
-                <button onClick={(e)=>{
+                </Popup>
+
+                <Fab  aria-label="delete"style={{margin:"8px"}}
+                onClick={(e)=>{
                     this.setState({
                         todoId:book.id
                     },()=>{
                         this.delete()
                     })
-                }}>delete</button>
+                }}
+                >
+                    <DeleteIcon />
+                </Fab>
             </div>
+            
             )}
+
+
+
+
+           
         </div>
         )}
 }
