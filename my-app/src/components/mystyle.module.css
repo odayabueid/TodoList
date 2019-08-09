@@ -1,0 +1,46 @@
+
+  .root {
+    height: 100vh;
+  }
+
+  .image {
+    background-image: url("https://source.unsplash.com/random");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center
+  }
+
+  
+  .paper {
+    margin: 64px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar{
+    margin: 8px;
+    background-color: secondary,
+  }
+  .form {
+    width: 100%;
+    margin-top: 8px
+  }
+
+
+  .paper1{
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar1 {
+    margin: 8px;
+    background-color: secondary
+  }
+  
+  .form1 {
+    width: 100%;
+    margin-top: 24px
+  }
