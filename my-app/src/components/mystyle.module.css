@@ -4,7 +4,7 @@
   }
 
   .image {
-    background-image: url("https://source.unsplash.com/random");
+    background-image: url("https://ak1.picdn.net/shutterstock/videos/9779651/thumb/1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position:center
@@ -48,5 +48,93 @@
   .container {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 35%
+    margin-left: 35%;
+    margin-bottom: 5%;
+  }
+
+  .todo{
+    background-color: #EFEEFF;
+    margin: 10px;
+    width: 400px;
+    position: relative;
+    margin-left: 32%;
+  }
+  .home{
+    height: 100vh;
+    background-image: url("https://www.executive-baskets.com/wp-content/uploads/2016/03/Fotolia_99922774_Subscription_Monthly_M.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  }
+
+  .SignInBtn{
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: IndianRed;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    display: block;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 19%;
+    width: 20%;
+    position: absolute;
+  }
+  .SignInBtn:hover {background-color: #3e8e41}
+
+  .SignInBtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  .SignUpBtn{
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: SteelBlue;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+    display: block;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 24%;
+    width: 20%;
+    position: absolute;
+  }
+
+  .SignUpBtn:hover {background-color: #3e8e41}
+
+  .SignUpBtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+
+
+  .para{
+    margin-left: 35.5%;
+    margin-right: 35%;
+    margin-top: 10%;
+    color:white;
+    font-size: 50px;
+    width: 40%;
+    position: absolute;
+    font-family: serif
   }

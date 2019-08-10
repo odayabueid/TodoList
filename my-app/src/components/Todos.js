@@ -187,25 +187,11 @@ handleChange =()=>{
             </Button>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             </form>
             {this.state.books.map(book=>
-            <div>
+            <div className={styles.todo}>
      
                 <Checkbox
-                    // checked={state.checkedA}
                     onChange={this.handleChange}
                     value="checkedA"
                     inputProps={{
@@ -214,26 +200,36 @@ handleChange =()=>{
                 <span>{book.todo}</span>
            
             
-                <Popup trigger={ <Fab color="secondary" aria-label="edit" style={{margin:"8px"}}>
+                <Popup trigger={ <Fab color="secondary" aria-label="edit" style={{margin:"8px",marginLeft:"90px"}}>
                 <EditIcon />    
                 </Fab>} position="right center">
-                    <input type="text" onChange={this.updatetodo.bind(this)}></input>
-                    <button  onClick={(e)=>{
-                    this.setState({
-                        todoId:book.id
-                    },()=>{
-                        this.prof()
-                    })
-                }}>update</button>
+
+                    {/* <input type="text" onChange={this.updatetodo.bind(this)}></input> */}
+                    <TextField
+                        id="standard-name"
+                        label="Update Todo"
+                        style={{marginLeft:"8px",marginRight:"8px",width:"200"}}
+                        onChange={this.updatetodo.bind(this)}
+                        margin="normal"
+                    />
+                     <Button variant="contained" color="primary" style={{"margin":"8px"}}
+                     onClick={(e)=>{
+                        this.setState({
+                            todoId:book.id
+                        },()=>{
+                            this.prof()
+                        })
+                    }}>
+                        Update
+                    </Button>
+        
                 </Popup>
 
                 <Fab  aria-label="delete"style={{margin:"8px"}}
                 onClick={(e)=>{
                     this.setState({
                         todoId:book.id
-                    },()=>{
-                        this.delete()
-                    })
+                    },this.delete)
                 }}
                 >
                     <DeleteIcon />
