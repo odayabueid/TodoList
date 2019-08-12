@@ -17,7 +17,7 @@ import Icon from '@material-ui/core/Icon';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Popup from "reactjs-popup";
-
+import DatePicker from 'react-date-picker'
 
 var jwt = require("jsonwebtoken");
 
@@ -31,8 +31,11 @@ class Todos extends React.Component{
       updateTodo:"",
       newTodo:"",
       username:"",
-      redirect:false
+      redirect:false,
+      createdate:""
         }
+        // this.handleChange = this.handleChange.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
@@ -129,7 +132,8 @@ componentDidMount(){
               },
               body: JSON.stringify({
                 "username":this.state.username,
-                "todo" : this.state.newTodo
+                "todo" : this.state.newTodo,
+                "createdate":this.state.createdate
                 } 
                 )
         }).then((response) => {
@@ -162,15 +166,16 @@ componentDidMount(){
           }}/>
     }
 }
-handleChange =()=>{
-    alert("sssssssssssssss")
-}
+handleChange =(date)=>{
+    console.log(date)
+    this.setState({
+        createdate: date.toString().split("00")[0]
+      },()=>{console.log(this.state.createdate)})}
   render(){
     return(
         <div>
             {this.renderRedirect()}
             <form className={styles.container} noValidate autoComplete="off">
-     
             <TextField
             id="outlined-dense"
             label="Add Todo"
@@ -179,6 +184,12 @@ handleChange =()=>{
             variant="outlined"
             onChange={this.newTodo.bind(this)}
             /> 
+            <DatePicker
+               utcOffset="0"
+               dateFormat="DD-MMM HH:mm"
+             onChange={this.handleChange}
+             name="createDate"
+            />
               <Button variant="contained" color="primary" style={{margin:"8px",marginTop:"16px"}} onClick={this.add}>
                     Add 
             </Button>
@@ -186,11 +197,11 @@ handleChange =()=>{
                 Log Out
             </Button>
 
-
+           
             </form>
             {this.state.books.map(book=>
             <div className={styles.todo}>
-     
+                     <p>{book.createdate}</p>
                 <Checkbox
                     onChange={this.handleChange}
                     value="checkedA"
@@ -198,6 +209,7 @@ handleChange =()=>{
                     'aria-label': 'primary checkbox',
                 }}/>
                 <span>{book.todo}</span>
+           
            
             
                 <Popup trigger={ <Fab color="secondary" aria-label="edit" style={{margin:"8px",marginLeft:"90px"}}>
@@ -232,15 +244,13 @@ handleChange =()=>{
                     },this.delete)
                 }}
                 >
-                    <DeleteIcon />
+                    <DeleteIcon
+                     />
                 </Fab>
+                
             </div>
             
             )}
-
-
-
-
            
         </div>
         )}

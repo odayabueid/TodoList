@@ -3,8 +3,8 @@ const { db, Sequelize } = require("./db.js");
 
 const List = db.define('list', {
     id: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
-    todo: {type: Sequelize.STRING, required: true}
-   
+    todo: {type: Sequelize.STRING, required: true},
+    createdate: {type: Sequelize.STRING, required: true}
 })
 
 const User = db.define('user', {

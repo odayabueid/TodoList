@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router'
-import { StylesContext } from '@material-ui/styles/StylesProvider';
 import styles from './mystyle.module.css'; 
-import { sign } from 'crypto';
 
+// Home Class render in Home Page
 class Home extends React.Component{
     constructor(props){
         super(props);
@@ -12,41 +11,43 @@ class Home extends React.Component{
             signup:false
         }
     }
-signIn=()=>{
-    this.setState({
-        signin:true
-    })
-}
-signUp=()=>{
-    this.setState({
-        signup:true
-    })
-}
-  renderRedirect=()=>{
-
-    if(this.state.signin){
-        return <Redirect to = {{
-          pathname:"/signin"
-          }}/>
-      }
-      if(this.state.signup){
-          return <Redirect to = {{
-            pathname:"/signup"
+    //signIn to change the state to true to redirect to signIn Page
+    signIn=()=>{
+        this.setState({
+            signin:true
+        })
+    }
+    //signUp to change the state to true to redirect to signUp Page
+    signUp=()=>{
+        this.setState({
+            signup:true
+        })
+    }
+    // redirect to signin page or signup page
+    renderRedirect=()=>{
+        if(this.state.signin){
+            return <Redirect to = {{
+                pathname:"/signin"
             }}/>
         }
-  }
-  render(){
-    return(
-        <div className={styles.home}>
-            <div className={styles.btnDiv}>
-                <p className={styles.para}>Create Your Todo List</p>
-                <button className={styles.SignInBtn} onClick={this.signIn}>SignIn</button>
-                <button className={styles.SignUpBtn} onClick={this.signUp}>SignUp</button>
+        if(this.state.signup){
+            return <Redirect to = {{
+                pathname:"/signup"
+                }}/>
+            }
+    }
+        
+    render(){
+        return(
+            <div className={styles.home}>
+                <div className={styles.btnDiv}>
+                    <p className={styles.para}>Create Your Todo List</p>
+                    <button className={styles.SignInBtn} onClick={this.signIn}>SignIn</button>
+                    <button className={styles.SignUpBtn} onClick={this.signUp}>SignUp</button>
+                </div>
+                {this.renderRedirect()}
             </div>
-            {this.renderRedirect()}
-
-        </div>
-    )}
+        )}
 }
 
 export default Home;

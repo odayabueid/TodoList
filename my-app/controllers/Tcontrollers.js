@@ -53,7 +53,8 @@ exports.createTodo = function(req,res){
     }).then(user=>{
         console.log(user)
         user.createList({
-            todo:req.body.todo
+            todo:req.body.todo,
+            createdate:req.body.createdate
         })
     }).then(list =>{
         res.send("Todo created")
