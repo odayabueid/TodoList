@@ -17,7 +17,11 @@ import Icon from '@material-ui/core/Icon';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Popup from "reactjs-popup";
-import DatePicker from 'react-date-picker'
+// import DatePicker from 'react-date-picker'
+// var DatePicker = require("react-bootstrap-date-picker");
+import Calendar from 'react-calendar';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 var jwt = require("jsonwebtoken");
 
@@ -184,18 +188,35 @@ handleChange =(date)=>{
             variant="outlined"
             onChange={this.newTodo.bind(this)}
             /> 
-            <DatePicker
-               utcOffset="0"
-               dateFormat="DD-MMM HH:mm"
+            
+
+<Popup trigger={ <IconButton aria-label="delete" style={{margin:"8px",backgroundColor:"#FB0860"}} size="medium">
+          <ArrowDownwardIcon fontSize="inherit" />
+        </IconButton>} position="right center">
+        <Calendar
              onChange={this.handleChange}
-             name="createDate"
-            />
-              <Button variant="contained" color="primary" style={{margin:"8px",marginTop:"16px"}} onClick={this.add}>
+        />
+                </Popup>
+
+
+
+
+
+
+
+
+
+
+
+            <div  style={{margin:"8px",marginTop:"16px",marginLeft:"22%"}}>
+
+              <Button variant="contained" color="primary"  onClick={this.add} style={{marginRight:"20px"}}>
                     Add 
             </Button>
-            <Button variant="contained" color="secondary" style={{margin:"8px",marginTop:"16px",marginLeft:"30%"}} onClick={this.logout}>
+            <Button variant="contained" color="secondary" onClick={this.logout}>
                 Log Out
             </Button>
+            </div>
 
            
             </form>

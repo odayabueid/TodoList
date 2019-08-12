@@ -16,27 +16,27 @@ const { Place, User } = require('./database/models.js');
 const app = express();
 const normalizePort =port =>parseInt(port,10);
 const port = normalizePort(process.env.PORT || 8001);
-const dev= app.get('env') !== 'production'
-if(!dev) {
-    app.disable('x-Powered-by')
-    app.use(compression())
-    app.use(express.static(path.resolve(__dirname, "build")))
-    app.get('*', (req,res) =>{
-        res.sendFile(path.resolve(__dirname,"build","index.html"))
-    })
-}
-if(dev){
-    app.use(morgan('dev'))
-}
+// const dev= app.get('env') !== 'production'
+app.use(express.static(path.join(__dirname, "/build")))
+// if(!dev) {
+//     app.disable('x-Powered-by')
+//     app.use(compression())
+//     app.get('*', (req,res) =>{
+//         res.sendFile(path.resolve(__dirname,"build","index.html"))
+//     })
+// }
+// if(dev){
+//     app.use(morgan('dev'))
+// }
 // const server = createServer(app)
 //Middleware
 app.use(printTime);
 app.use(bodyParser);
 app.use(cors()); //Allow cross origin requests (browser security lecture)
 
-app.get('/', function(req, res) {
-    res.send('Hello World!');
-});
+// app.get('/', function(req, res) {
+//     res.send('Hello World!');
+// });
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -45,9 +45,11 @@ app.use(function(req, res, next) {
   
 
 app.use("/",Router.router)
+
+
 app.listen(port,err=>{
     if(err) throw err
-    console.log('oday server started')
+    console.log('oday server started',port)
 })
 // app.listen(port, function() {
 //     console.log(`Example app listening on port ${port}!`)
