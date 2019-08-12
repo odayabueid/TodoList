@@ -8,8 +8,8 @@ var mysql = require('mysql')
 //     dialect: 'mysql',
 // })
 
-const db = new Sequelize("hacker", "root", '1111', {
-        host:"localhost",
+const db = new Sequelize("cqKKB9vyiL", "cqKKB9vyiL", '8pAoEG8TV4', {
+        host:"remotemysql.com",
         dialect: 'mysql'
     })
 
