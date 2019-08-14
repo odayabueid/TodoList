@@ -1,3 +1,4 @@
+// import components to the parent
 import React from 'react';
 import Todos from "./components/Todos.js"
 import SignIn from "./components/SignIn.js"
@@ -6,35 +7,31 @@ import SignUp from "./components/SignUp.js"
 import { BrowserRouter , Router } from "react-router-dom";
 import { Route } from 'react-router-dom';
 
-
-
+// App Class
 class App extends React.Component{
-
-  constructor(props){
-    super(props);
-
-}
+    constructor(props){
+      super(props);
+    }
 
   render(){
-  return (
-    <div>
-    <BrowserRouter>
+    return (
       <div>
-        <Route exact path="/todos" component={Todos} />
+        <BrowserRouter>
+          <div>
+            <Route exact path="/todos" component={Todos} />
+          </div>
+          <div>
+            <Route exact path ="/signin" component ={SignIn}/>
+          </div>
+          <div>
+            <Route exact path ="/signup" component ={SignUp}/>
+          </div>
+          <div>
+            <Route exact path ="/" component ={Home}/>
+          </div>
+        </BrowserRouter>
       </div>
-      <div>
-        <Route exact path ="/signin" component ={SignIn}/>
-      </div>
-      <div>
-        <Route exact path ="/signup" component ={SignUp}/>
-      </div>
-      <div>
-        <Route exact path ="/" component ={Home}/>
-      </div>
-    </BrowserRouter>
-       
-    </div>
-  );
+    );
   }
 }
 

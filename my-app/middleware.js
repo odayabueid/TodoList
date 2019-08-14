@@ -10,13 +10,13 @@ const printTime = function(req, res, next){
 };
 
 const bodyParser = express.json();
-
+// autenticate function to check the username validation
 const authenticate = function(req, res, next){
     const token = req.headers['x-access-token']; //Username encoded in token
-    if(!token){
-        return res.status(HTTP_UNAUTHORIZED).send('Please sign in');
-    }
-    jwt.verify(token, SECRET_KEY, function(err, decodedToken){
+        if(!token){
+            return res.status(HTTP_UNAUTHORIZED).send('Please sign in');
+        }
+         jwt.verify(token, SECRET_KEY, function(err, decodedToken){
         //If err, token invalid
         if(err){
             return res.status(HTTP_UNAUTHORIZED).send('Please sign in');

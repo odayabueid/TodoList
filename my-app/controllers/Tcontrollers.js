@@ -1,29 +1,28 @@
+
 db = require('../database/models.js')
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY, DATABASE_URL } = require('../secret.js');
-
 const bcrypt = require("bcrypt")
 const { HTTP_UNAUTHORIZED, HTTP_SERVER_ERROR } = require('../constants.js')
 
 //Create new user in the database
-
 exports.createUser = function(req,res){
- const uname = req.body.username;
- const pass = req.body.password;
- const hashedPassword = bcrypt.hashSync(pass, 10);
-    db.User.create({
-        username:uname,
-        password:hashedPassword 
-    }).then(user =>{
-        res.send("Sign up successful")
-    }).catch(err =>{
-        if(err.name === "SequelizeUniqueConstraintError"){
-            return res.status(HTTP_BAD_REQUEST).send('This username is already taken');
-        }
-        return res.status(HTTP_SERVER_ERROR).send('hello Error');
-    })
+    const uname = req.body.username;
+    const pass = req.body.password;
+    const hashedPassword = bcrypt.hashSync(pass, 10);
+        db.User.create({
+            username:uname,
+            password:hashedPassword 
+        }).then(user =>{
+            res.send("Sign up successful")
+        }).catch(err =>{
+            if(err.name === "SequelizeUniqueConstraintError"){
+                return res.status(HTTP_BAD_REQUEST).send('This username is already taken');
+            }
+            return res.status(HTTP_SERVER_ERROR).send('hello Error');
+        })
 };
-
+//find specific user, and hash the password and Create a token if the password matched send it to client
 exports.findUser = function(req,res){
     const username = req.body.username;
     const password = req.body.password;
@@ -36,7 +35,6 @@ exports.findUser = function(req,res){
         
         bcrypt.compare(password, existingHashedPassword).then(function(isMatching){
             if(isMatching){
-                //Create a token and send to client
                 const token = jwt.sign({username: user.username}, SECRET_KEY, {expiresIn: 4000});
                 return res.send({token: token});
             } else {
@@ -46,7 +44,7 @@ exports.findUser = function(req,res){
 
     })
 }
-
+// creat new todo belongs to specific user
 exports.createTodo = function(req,res){
     db.User.findOne({
         where:{username:req.body.username}
@@ -62,20 +60,20 @@ exports.createTodo = function(req,res){
         console.log('Error is',err)
     })
 };
-
+// delete specific todo belongs to specific user
 exports.deleteTodo = function(req, res) {
 	db.User.findOne({
         where:{username:req.body.username}
     }).then(user =>{
 		db.List.destroy({where:{id:req.body.id}}).then(todo =>{
-				res.send("deleted")
+		    res.send("deleted")
 		})
     }).catch(err =>{
         console.log(err)
     })
 };
-
-exports.retrieveTodos= function(req,res){ // retriev all Todos of specific user
+// retriev all Todos of specific user
+exports.retrieveTodos= function(req,res){ 
 	db.User.findOne({
         where:{username:req.query.username}
     }).then(user =>{
@@ -86,7 +84,7 @@ exports.retrieveTodos= function(req,res){ // retriev all Todos of specific user
         console.log(err)
     })
  };
-
+// update specific todo 
  exports.updateTodo = function(req, res) {  
 	db.List.update({
 		todo:req.body.todo
